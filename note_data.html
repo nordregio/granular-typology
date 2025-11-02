@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRANULAR - Rural typology - Data</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .header {
+            text-align: left;
+            padding: 40px 0 20px 0;
+            margin-bottom: 0px;
+        }
+
+        .logo {
+            max-width: 240px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: 600;
+            color: #3D7454;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #666;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3D7454;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        ul {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #3D7454;
+        }
+
+        .data-source {
+            background-color: #f8faf6;
+            padding: 16px;
+            border-left: 4px solid #9DC567;
+            margin-bottom: 20px;
+        }
+
+        .data-source p {
+            margin-bottom: 8px;
+        }
+
+        .data-source p:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: #3D7454;
+            text-decoration: none;
+            border-bottom: 1px solid #9DC567;
+        }
+
+        a:hover {
+            color: #2a5238;
+            border-bottom: 1px solid #3D7454;
+        }
+
+        .scale-list {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .scale-list li {
+            margin-bottom: 6px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            h2 {
+                page-break-after: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            .logo {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="img/logo-granular-2x.svg" alt="Granular Logo" class="logo">
+            <h1>Data Sources</h1>
+            <p class="subtitle">Building rural typology</p>
+            <p class="subtitle">WP4.6 Characterising rural diversity</p>
+        </div>
+
+        <h2>Overview</h2>
+        <p>The analysis utilizes 1 km² grid cells covering the European territory, integrating data from multiple sources. This document provides detailed information about each data source, including its characteristics, processing methods, and access links.</p>
+
+        <h2>Population Change</h2>
+        <p>The population variable represents total population count from the 2021 population census in the EU per 1×1 kilometer grid cell. The grid composition from this data is used as a reference grid for all other datasets.</p>
+
+        <p>For the typology, we used the absolute change rate (percent) between 2011 and 2021. Values were log-transformed to address extreme skewness while preserving all values, including non-populated cells.</p>
+
+        <div class="data-source">
+            <p><strong>Source:</strong> Eurostat Census - Population Distribution / Population Grids</p>
+            <p><strong>Link:</strong> <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/population-distribution/population-grids" target="_blank">https://ec.europa.eu/eurostat/web/gisco/geodata/population-distribution/population-grids</a></p>
+        </div>
+
+        <h2>Volumetric Built Density</h2>
+        <p>Building density is measured using the GHS-BUILT-H R2023A dataset, which provides building height derived from AW3D30, SRTM30, and Sentinel-2 composite (2018). This variable captures the three-dimensional physical infrastructure footprint of human settlements.</p>
+
+        <p>The data is published at 100m resolution in World Mollweide projection. For this analysis, the 100m resolution raster was aggregated to a 1 km × 1 km grid aligned with the population dataset using the average resampling method, producing mean building volume values within each population cell.</p>
+
+        <p>For the typology, we used log-transformed values to normalize the extreme right skew in the distribution.</p>
+
+        <div class="data-source">
+            <p><strong>Source:</strong> GHSL - Global Human Settlement Layer</p>
+            <p><strong>Dataset:</strong> GHS-BUILT-H R2023A</p>
+            <p><strong>Link:</strong> <a href="https://human-settlement.emergency.copernicus.eu/ghs_buH2023.php" target="_blank">https://human-settlement.emergency.copernicus.eu/ghs_buH2023.php</a></p>
+        </div>
+
+        <h2>Hemeroby Index</h2>
+        <p>The Hemeroby Index is derived from reclassified CORINE land use categories and measures deviation from potential natural vegetation due to human impact. The index uses an ordinal scale from 1 to 7, where higher values indicate stronger human influence. For this analysis, we treat the scale as representing similar levels of change between categories.</p>
+
+        <h3>Scale Interpretation</h3>
+        <ul class="scale-list">
+            <li><strong>Ahemerobic (1):</strong> Natural/semi-natural areas (old-growth forests, natural wetlands)</li>
+            <li><strong>Oligohemerobic (2):</strong> Extensive forests, natural grasslands with minimal management</li>
+            <li><strong>Mesohemerobic (3):</strong> Managed forests, extensive grazing, traditional agriculture</li>
+            <li><strong>Beta-euhemerobic (4):</strong> Intensive agriculture, improved grasslands</li>
+            <li><strong>Alpha-euhemerobic (5):</strong> Intensive farming with fertilizers, suburban areas</li>
+            <li><strong>Polyhemerobic (6):</strong> Industrial agriculture, intensive livestock, rural settlements</li>
+            <li><strong>Metahemerobic (7):</strong> Rural industrial areas, intensive infrastructure</li>
+        </ul>
+
+        <div class="data-source">
+            <p><strong>Source:</strong> CORINE Land Cover 2018</p>
+            <p><strong>Link:</strong> <a href="https://land.copernicus.eu/en/products/corine-land-cover/clc2018" target="_blank">https://land.copernicus.eu/en/products/corine-land-cover/clc2018</a></p>
+        </div>
+
+        <h2>Accessibility Indicators</h2>
+        <p>Accessibility indicators at EU scale provide travel time and reachability metrics from populated 1km EU grid cells to towns and cities. The indicators are based on car travel times and include both distance-to-nearest and count-based measures.</p>
+
+        <h3>Travel Time Indicators</h3>
+        <ul>
+            <li>Travel time by car to the nearest small town or city (more than 5,000 inhabitants)</li>
+            <li>Travel time by car to the nearest medium town or city (more than 10,000 inhabitants)</li>
+            <li>Travel time by car to the nearest large city (more than 50,000 inhabitants)</li>
+        </ul>
+
+        <h3>Reachability Indicators (30-minute threshold)</h3>
+        <ul>
+            <li>Number of towns and cities (more than 5,000 inhabitants) reachable within 30 minutes by car</li>
+            <li>Number of medium/large towns and cities (more than 10,000 inhabitants) reachable within 30 minutes by car</li>
+            <li>Number of cities (more than 50,000 inhabitants) reachable within 30 minutes by car</li>
+        </ul>
+
+        <p>These accessibility measures were calculated using open source and free routing engines (OSRM), based on OpenStreetMap (OSM) road network data.</p>
+
+        <p>To estimate accessibility for unpopulated grid cells, we use a spatial interpolation method, specifically Inverse Distance Weighting (IDW). For more details on this approach and its limitations, see the <a href="note_data_accessibility.html">accessibility measures technical note</a>.</p>
+
+        <div class="data-source">
+            <p><strong>Source:</strong> RIATE</p>
+            <p><strong>Link:</strong> <a href="https://zenodo.org/records/12724075" target="_blank">https://zenodo.org/records/12724075</a></p>
+        </div>
+
+        <h2>DEGURBA Classification</h2>
+        <p>The Degree of Urbanisation (DEGURBA) classification provides a refined degree of urbanisation in Europe at Level 2. This classification serves as the framework for initial stratification into rural settlement classes, with the analysis conducted separately for each DEGURBA rural class (Classes 11, 12, and 13).</p>
+
+        <div class="data-source">
+            <p><strong>Source:</strong> Eurostat</p>
+            <p><strong>Classification:</strong> Refined Degree of Urbanisation in Europe (DEGURBA Level 2)</p>
+            <p><strong>Link:</strong> <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Applying_the_degree_of_urbanisation_manual_-_Extensions_to_level_1_of_the_classification#7.1_Level_2_of_the_degree_of_urbanisation" target="_blank">Eurostat - DEGURBA Level 2 Manual</a></p>
+        </div>
+    </div>
+</body>
+</html>

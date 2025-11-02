@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRANULAR - Rural typology</title>
+    <style>
+     * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+     }
+
+     body {
+       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+       line-height: 1.6;
+       color: #333;
+       background-color: #fff;
+       padding: 20px;
+     }
+
+     .container {
+       max-width: 900px;
+       margin: 0 auto;
+       background: white;
+     }
+
+     .header {
+       text-align: left;
+       padding: 40px 0 20px 0;
+       /* border-bottom: 2px solid #9DC567; */
+       margin-bottom: 0px;
+     }
+
+     .logo {
+       max-width: 240px;
+       height: auto;
+       margin-bottom: 30px;
+     }
+
+     h1 {
+       font-size: 2em;
+       font-weight: 600;
+       color: #3D7454;
+       margin-bottom: 10px;
+     }
+
+     .subtitle {
+       font-size: 1.1em;
+       color: #666;
+       font-weight: 400;
+     }
+
+     h2 {
+       font-size: 1.5em;
+       font-weight: 600;
+       color: #333;
+       margin-top: 20px;
+       margin-bottom: 16px;
+       padding-bottom: 8px;
+       border-bottom: 2px solid #3D7454;
+     }
+
+     h3 {
+       font-size: 1.2em;
+       font-weight: 600;
+       color: #333;
+       margin-top: 28px;
+       margin-bottom: 12px;
+     }
+
+     p {
+       margin-bottom: 16px;
+       text-align: justify;
+     }
+
+     ul {
+       margin-bottom: 16px;
+       padding-left: 20px;
+     }
+
+     li {
+       margin-bottom: 8px;
+     }
+
+     strong {
+       font-weight: 600;
+       color: #3D7454;
+     }
+
+     .degurba-class {
+       background-color: #f8faf6;
+       padding: 16px;
+       border-left: 4px solid #9DC567;
+       margin-bottom: 20px;
+     }
+
+     .degurba-class h4 {
+       font-size: 1.1em;
+       font-weight: 600;
+       color: #3D7454;
+       margin-bottom: 8px;
+     }
+
+     .degurba-class p {
+       margin-bottom: 4px;
+     }
+
+     .metric {
+       font-family: 'Courier New', monospace;
+       background-color: #f0f7e9;
+       padding: 2px 6px;
+       border-radius: 3px;
+       font-size: 0.95em;
+       color: #3D7454;
+     }
+
+     @media print {
+       body {
+         padding: 0;
+       }
+
+       .container {
+         max-width: 100%;
+       }
+
+       h2 {
+         page-break-after: avoid;
+       }
+     }
+
+     @media (max-width: 768px) {
+       body {
+         padding: 10px;
+       }
+
+       h1 {
+         font-size: 1.6em;
+       }
+
+       h2 {
+         font-size: 1.3em;
+       }
+
+       .logo {
+         max-width: 150px;
+       }
+     }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="img/logo-granular-2x.svg" alt="Granular Logo" class="logo">
+        <h1>Building Rural Typology</h1>
+        <p class="subtitle">Notes on the data and methodology</p>
+        <p class="subtitle">WP4.6 Characterising rural diversity</p>
+      </div>
+
+      <h2>Overview</h2>
+      <p>This document outlines the key principles and methods used to develop a new rural typology for Europe that reveals greater diversity within rural areas than existing classifications.</p>
+
+      <p>We build on the DEGURBA typology by using the DEGURBA urban-rural classification as a core structuring element. The new rural classification operates within each of the three DEGURBA rural classes: Mostly uninhabited areas or very dispersed rural area (Class 11), Dispersed rural areas (Class 12), and Villages (Class 13). Rather than replacing DEGURBA, we aim to add nuance and show more diversity within these established rural classes.</p>
+
+      <p>The new typology also adopts the Nordic urban-rural typology's general approach of using multiple thematic layers to characterize areas. The layers for this typology - population dynamics, land use, built environment, and accessibility - were chosen for their thematic alignment with the Nordic model and their capacity to capture meaningful variation in rural characteristics.</p>
+
+      <p>We employ an unsupervised machine learning approach to classify European grid cells into distinct rural subtypes using K-Means clustering with automatic cluster number selection based on silhouette analysis.</p>
+
+      <h2>Goal</h2>
+      <p>The primary goal is to create a data-driven rural typology that captures the heterogeneity of rural Europe while remaining compatible with the established DEGURBA framework. This classification enables more nuanced analysis of rural development patterns, accessibility challenges, and demographic trends across different rural contexts.</p>
+
+      <p>The typology is built using open data and is designed to be reproducible and updatable, ensuring it can stay relevant over time as new data becomes available.</p>
+
+      <p>
+        <strong>Why Automatic Classification?</strong> We employ an automatic classification approach rather than manual delineation for several reasons. First, it ensures the typology is well documented and consistent, making it fully reproducible by others. Second, it provides conceptual clarity, defining thresholds manually is often difficult and arbitrary, while algorithmic approaches use systematic criteria. Finally, manual classification becomes unmanageable when working with multiple classes across large spatial datasets, whereas automated methods can efficiently handle complexity at scale.</p>
+
+      <h2>Data</h2>
+      <p>The analysis utilizes 1 km² grid cells covering the European territory, integrating data from multiple sources:</p>
+      <ul>
+        <li><strong>Population data:</strong> Absolute population change rates (2011-2021) from Eurostat</li>
+        <li><strong>Built environment:</strong> Building density measured as average gross building height from the Global Human Settlement Layer (GHS-BUILT-H)</li>
+        <li><strong>Land modification:</strong> Hemeroby index measuring human influence on natural landscapes, calculated using CORINE land cover data</li>
+        <li><strong>Accessibility:</strong> Travel times to urban centers of different population thresholds (5,000, 10,000, and 50,000 inhabitants) and counts of accessible towns within 30-minute travel time</li>
+        <li><strong>DEGURBA classification:</strong> Framework for initial stratification into rural settlement classes</li>
+      </ul>
+
+      <h2>Feature Engineering</h2>
+      <p>To ensure comparability across regions and optimize clustering performance, we transformed the raw variables into six engineered features:</p>
+      <ul>
+        <li><strong><span class="metric">log_population_change</span>:</strong> Signed logarithmic transformation of population change rate (2011-2021) to handle both growth and decline while reducing the influence of extreme values</li>
+        <li><strong><span class="metric">log_building_density</span>:</strong> Logarithmic transformation of building density to normalize the distribution</li>
+        <li><strong><span class="metric">hemeroby_index</span>:</strong> Direct measure of landscape modification on a scale reflecting intensity of human influence</li>
+        <li><strong><span class="metric">small_town_accessibility</span>:</strong> Composite indicator for accessibility to towns with 5,000+ population, combining inverse travel time and count of accessible towns within 30 minutes</li>
+        <li><strong><span class="metric">medium_town_accessibility</span>:</strong> Composite accessibility measure for towns with 10,000+ population</li>
+        <li><strong><span class="metric">large_city_accessibility</span>:</strong> Composite accessibility measure for cities with 50,000+ population</li>
+      </ul>
+      <p>All features were standardized prior to clustering to ensure equal weighting in the distance calculations.</p>
+
+      <h2>Methodology</h2>
+      <p>The analysis is conducted separately for the three DEGURBA rural settlement classes to respect their fundamental structural differences:</p>
+      <ul>
+        <li><strong>Class 11 - Mostly uninhabited areas or very dispersed rural area:</strong> rural grid cells with a density of less than 50 inhabitants per km²</li>
+        <li><strong>Class 12 - Dispersed rural areas:</strong> rural grid cells with a density of at least 50 inhabitants per km² that are not part of a rural cluster</li>
+        <li><strong>Class 13 - Villages:</strong> grid cells with a density of at least 300 inhabitants per km² and a collective population between 500 and 4,999 in the cluster</li>
+      </ul>
+
+      <h3>Clustering Algorithm: MiniBatch K-Means</h3>
+      <p>We employ MiniBatch K-Means, a scalable variant of the K-Means algorithm optimized for large datasets. This approach processes data in randomly sampled batches rather than using the entire dataset in each iteration, significantly reducing computational time while maintaining clustering quality.</p>
+
+      <p>K-Means clustering was selected for its computational efficiency with large datasets, interpretability through clear cluster centroids, and ability to partition grid cells based on similarity across multiple dimensions simultaneously.</p>
+
+
+      <p><strong>Algorithm configuration:</strong></p>
+      <ul>
+        <li><strong>Batch size:</strong> 10,000 observations per batch</li>
+        <li><strong>Initialization:</strong> 20 random initializations (n_init=20) with 200 maximum iterations per run to ensure convergence to a stable solution</li>
+        <li><strong>Scaler:</strong> RobustScaler, which uses median and interquartile range for standardization, making it less sensitive to outliers than standard normalization</li>
+        <li><strong>Random state:</strong> 42 (for reproducibility)</li>
+      </ul>
+
+      <h3>Optimal Cluster Selection: Silhouette Analysis</h3>
+      <p>The number of clusters (k) is automatically determined using silhouette analysis, which measures how similar an observation is to its own cluster compared to other clusters. The silhouette score ranges from -1 to 1, where values closer to 1 indicate well-defined, separated clusters.</p>
+
+      <p><strong>Selection logic:</strong></p>
+      <ul>
+        <li>Test k values from 2 to 5 clusters for each DEGURBA class</li>
+        <li>Calculate the mean silhouette score for each k value</li>
+        <li>If any k achieves silhouette score > 0.5, select the highest such k</li>
+        <li>Otherwise, select the k with the maximum silhouette score</li>
+      </ul>
+
+      <p><strong>Rationale:</strong> A silhouette score above 0.5 indicates well-separated, cohesive clusters, a threshold commonly used to identify meaningful clustering solutions. When multiple k values exceed this threshold, selecting the highest k provides more detailed typological differentiation while maintaining clustering quality. This approach balances interpretability (fewer clusters are easier to interpret) with granularity (more clusters reveal finer distinctions), automatically adapting to the inherent structure within each DEGURBA class.</p>
+
+      <p>The resulting classification produces distinct rural subtypes within each DEGURBA class that reflect combinations of demographic trends, development intensity, landscape modification, and accessibility patterns.</p>
+
+      <h2>Results</h2>
+      <p>The clustering procedure was applied separately to each DEGURBA rural class, producing typologies with varying levels of granularity based on the inherent structure of the data.</p>
+
+      <div class="degurba-class">
+        <h4>Mostly uninhabited/very dispersed rural areas</h4>
+        <p>5 distinct clusters identified from 4,625,046 grid cells</p>
+        <p>Silhouette score: 0.520</p>
+      </div>
+
+      <div class="degurba-class">
+        <h4>Dispersed rural areas</h4>
+        <p>2 distinct clusters identified from 801,214 grid cells</p>
+        <p>Silhouette score: 0.597</p>
+      </div>
+
+      <div class="degurba-class">
+        <h4>Villages</h4>
+        <p>2 distinct clusters identified from 136,650 grid cells</p>
+        <p>Silhouette score: 0.526</p>
+      </div>
+
+      <p>All silhouette scores exceed 0.5, indicating well-separated clusters with clear differentiation between rural subtypes. The variation in cluster numbers reflects the different degrees of heterogeneity within each DEGURBA class: the most sparsely populated areas (Class 11) show the greatest internal diversity, while dispersed rural areas and villages exhibit more binary distinctions.</p>
+
+      <p>The analysis covers the European territory with UK data integrated through model application to ensure geographic consistency. Additional validation metrics (Calinski-Harabasz and Davies-Bouldin scores) confirm the stability and quality of the clustering solutions across all three DEGURBA classes.</p>
+
+      <h2>Next Steps</h2>
+      <p>With the clustering analysis complete, the next phase focuses on validation and interpretation of the resulting rural subtypes. This involves examining the spatial patterns and characteristic profiles of each cluster to identify meaningful distinctions. Through collaborative discussion and expert consultation, we will develop descriptive names for each cluster that effectively communicate their defining features and support intuitive interpretation of the typology. This interpretive work is essential to transform the statistical classification into a more practical tool.</p>
+
+
+      <h2>Additional Materials</h2>
+      <ul>
+        <li><a href="https://nordregio.github.io/granular-typology" target="_blank"><strong>Interactive map</strong></a></li>
+        <li><a href="note_data.html"><strong>Data sources</strong></a></li>
+        <li><a href="notebook_classifier.html"><strong>Classification notebook</strong></a></li>
+        <li><a href="https://github.com/nordregio/granular-typology" target="_blank"><strong>GitHub repository</strong></a></li>
+      </ul>
+    </div>
+
+  </body>
+</html>
