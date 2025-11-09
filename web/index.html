@@ -84,6 +84,36 @@
        color: white;
      }
 
+     .menu-toggle-btn {
+       position: absolute;
+       top: 10px;
+       right: 10px;
+       background: white;
+       border: none;
+       padding: 10px 12px;
+       border-radius: 8px;
+       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+       cursor: pointer;
+       font-family: 'Montserrat', sans-serif;
+       font-size: 20px;
+       z-index: 2;
+       transition: background-color 0.2s, opacity 0.3s;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       width: 44px;
+       height: 44px;
+     }
+
+     .menu-toggle-btn:hover {
+       background-color: #f4c01e;
+     }
+
+     .menu-toggle-btn.panel-open {
+       opacity: 0;
+       pointer-events: none;
+     }
+
      .control-panel {
        position: absolute;
        top: 10px;
@@ -97,13 +127,46 @@
        width: 380px;
        max-height: 90vh;
        overflow-y: auto;
+       transition: transform 0.3s ease, opacity 0.3s ease;
+     }
+
+     .control-panel.hidden {
+       transform: translateX(calc(100% + 20px));
+       opacity: 0;
+       pointer-events: none;
+     }
+
+     .control-panel-header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 12px;
+     }
+
+     .close-btn {
+       background: none;
+       border: none;
+       font-size: 24px;
+       cursor: pointer;
+       color: #666;
+       padding: 0;
+       width: 30px;
+       height: 30px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       border-radius: 4px;
+       transition: background-color 0.2s, color 0.2s;
+     }
+
+     .close-btn:hover {
+       background-color: #f0f0f0;
+       color: #333;
      }
 
      .control-panel .logo {
-       width: 100%;
        max-width: 180px;
        margin-top: 5px;
-       margin-bottom: 12px;
        display: block;
      }
 
@@ -193,6 +256,69 @@
        margin-left: 5px;
      }
 
+     /* Toggle switch styles */
+     .toggle-container {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+     }
+
+     .toggle-label {
+       font-size: 11px;
+       color: #666;
+     }
+
+     .toggle-switch {
+       position: relative;
+       display: inline-block;
+       width: 44px;
+       height: 24px;
+       flex-shrink: 0;
+     }
+
+     .toggle-switch input {
+       opacity: 0;
+       width: 0;
+       height: 0;
+     }
+
+     .toggle-slider {
+       position: absolute;
+       cursor: pointer;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background-color: #ccc;
+       transition: 0.3s;
+       border-radius: 24px;
+     }
+
+     .toggle-slider:before {
+       position: absolute;
+       content: "";
+       height: 18px;
+       width: 18px;
+       left: 3px;
+       bottom: 3px;
+       background-color: white;
+       transition: 0.3s;
+       border-radius: 50%;
+       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+     }
+
+     .toggle-switch input:checked + .toggle-slider {
+       background-color: #3D7454;
+     }
+
+     .toggle-switch input:checked + .toggle-slider:before {
+       transform: translateX(20px);
+     }
+
+     .toggle-switch input:focus + .toggle-slider {
+       box-shadow: 0 0 1px #3D7454;
+     }
+
      /* Group toggle styles */
      .group-toggle {
        margin-bottom: 8px;
@@ -255,6 +381,7 @@
        margin-right: 6px;
        border: 1px solid rgba(0,0,0,0.1);
        flex-shrink: 0;
+       transition: background-color 0.3s ease;
      }
 
      .class-label {
@@ -275,21 +402,44 @@
           <div class="loader-subtext">Preparing grid data...</div>
         </div>
       </div>
+
+      <button class="menu-toggle-btn panel-open" id="menu-toggle-btn">☰</button>
     </div>
 
-    <div class="control-panel">
-      <img src="img/logo-granular-2x.svg" class="logo">
+    <div class="control-panel" id="control-panel">
+      <div class="control-panel-header">
+        <img src="img/logo-granular-2x.svg" class="logo">
+        <button class="close-btn" id="close-panel-btn">×</button>
+      </div>
 
       <div class="info-section">
         <h3>Rural Typology</h3>
         <p>
-          This typology builds on DEGURBA to reveal greater diversity within rural areas, operating within each rural class to add nuance to the established classification.
-        </p>
-        <p style="margin-top: 6px; margin-bottom: 6px;">
-          <a href="note.html" style="color: #3D7454; text-decoration: none; border-bottom: 1px solid #9DC567; font-size: 10px;">Read the methodology</a>
+          The typology builds on DEGURBA to create a more detailed rural classification.
         </p>
 
         <p>
+          It adds nuance and highlights the diversity within each of the three established rural classes.
+        </p>
+
+
+
+        <p style="margin-top: 6px; margin-bottom: 0;">
+          <a href="note.html" style="color: #3D7454; text-decoration: none; border-bottom: 1px solid #9DC567; font-size: 10px;">Read the methodology</a>
+        </p>
+      </div>
+
+
+
+      <div class="info-section">
+        <p style="font-size: 10px; line-height: 1.5; color: #666; font-style: italic;">
+          Class names are preliminary and will be revised. We welcome any feedback on regional patterns you find and naming suggestions! Contact us at <a href="mailto:email" style="color: #3D7454; text-decoration: none; border-bottom: 1px solid #9DC567;">kamila.dzhavatova@nordregio.org</a> and <a href="mailto:email" style="color: #3D7454; text-decoration: none; border-bottom: 1px solid #9DC567;">carlos.tapia@nordregio.org</a>
+        </p>
+      </div>
+
+
+      <div class="info-section">
+        <p style="margin-top: 0;">
           Use the <strong>opacity slider</strong> to adjust transparency and see the underlying basemap. Toggle <strong>class checkboxes</strong> to compare different rural types and explore spatial patterns across Europe.
         </p>
       </div>
@@ -307,7 +457,6 @@
         />
       </div>
 
-
       <div class="control-group">
         <!-- DEGURBA 11 Group -->
         <div class="group-toggle">
@@ -318,33 +467,28 @@
           <div class="group-classes">
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_11_class_0" value="degurba_11_class_0" checked>
-              <div class="class-color" style="background-color: #e8dcc8;"></div>
-              <!-- <span class="class-label">Class 0</span> -->
+              <div class="class-color" style="background-color: #d8d4c0;" data-class="degurba_11_class_0"></div>
               <span class="class-label">Mostly uninhabited remote rural areas</span>
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_11_class_1" value="degurba_11_class_1" checked>
-              <div class="class-color" style="background-color: #8e9ac3;"></div>
-              <!-- <span class="class-label">Class 1</span> -->
+              <div class="class-color" style="background-color: #8e9ac3;" data-class="degurba_11_class_1"></div>
               <span class="class-label">Mostly uninhabited close to surburban, peri-urban and semi-dense towns</span>
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_11_class_2" value="degurba_11_class_2" checked>
-              <div class="class-color" style="background-color: #6d5533;"></div>
-              <!-- <span class="class-label">Class 2</span> -->
+              <div class="class-color" style="background-color: #6d5533;" data-class="degurba_11_class_2"></div>
               <span class="class-label">Mostly uninhabited close to cities</span>
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_11_class_3" value="degurba_11_class_3" checked>
-              <div class="class-color" style="background-color: #c97d84;"></div>
+              <div class="class-color" style="background-color: #c97d84;" data-class="degurba_11_class_3"></div>
               <span class="class-label">Mostly uninhabited close to dispersed rural areas</span>
-              <!-- <span class="class-label">Class 3</span> -->
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_11_class_4" value="degurba_11_class_4" checked>
-              <div class="class-color" style="background-color: #d6a54d;"></div>
+              <div class="class-color" style="background-color: #d6a54d;" data-class="degurba_11_class_4"></div>
               <span class="class-label">Mostly uninhabited close to villages or dispersed rural areas</span>
-              <!-- <span class="class-label">Class 4</span> -->
             </div>
           </div>
         </div>
@@ -358,15 +502,13 @@
           <div class="group-classes">
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_12_class_0" value="degurba_12_class_0">
-              <div class="class-color" style="background-color: #9bc993;"></div>
-              <!-- <span class="class-label">Class 0</span> -->
+              <div class="class-color" style="background-color: #9bc993;" data-class="degurba_12_class_0"></div>
               <span class="class-label">Dispersed rural settlements </span>
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_12_class_1" value="degurba_12_class_1">
-              <div class="class-color" style="background-color: #5a9b4d;"></div>
+              <div class="class-color" style="background-color: #5a9b4d;" data-class="degurba_12_class_1"></div>
               <span class="class-label">Dispersed rural settlements close to cities</span>
-              <!-- <span class="class-label">Class 1</span> -->
             </div>
           </div>
         </div>
@@ -380,14 +522,12 @@
           <div class="group-classes">
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_13_class_0" value="degurba_13_class_0">
-              <div class="class-color" style="background-color: #96b9c9;"></div>
+              <div class="class-color" style="background-color: #96b9c9;" data-class="degurba_13_class_0"></div>
               <span class="class-label">Dispersed villages</span>
-              <!-- <span class="class-label">Class 0</span> -->
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_13_class_1" value="degurba_13_class_1">
-              <div class="class-color" style="background-color: #2b6ea6;"></div>
-              <!-- <span class="class-label">Class 1</span> -->
+              <div class="class-color" style="background-color: #2b6ea6;" data-class="degurba_13_class_1"></div>
               <span class="class-label">Dispersed villages close to urban areas</span>
             </div>
           </div>
@@ -397,25 +537,35 @@
         <div class="group-toggle">
           <div class="group-toggle-header">
             <input type="checkbox" id="group-degurba-urban">
-            <span>Urban areas (as in DEGURBA)</span>
+            <span>Urban areas (from DEGURBA)</span>
           </div>
           <div class="group-classes">
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_urban_class_21" value="degurba_urban_class_21">
-              <div class="class-color" style="background-color: #e67e50;"></div>
+              <div class="class-color" style="background-color: #e67e50;" data-class="degurba_urban_class_21"></div>
               <span class="class-label">Suburban or peri-urban area</span>
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_urban_class_22" value="degurba_urban_class_22">
-              <div class="class-color" style="background-color: #d85a2a;"></div>
+              <div class="class-color" style="background-color: #d85a2a;" data-class="degurba_urban_class_22"></div>
               <span class="class-label">Semi-dense town</span>
             </div>
             <div class="class-toggle">
               <input type="checkbox" id="class-degurba_urban_class_30" value="degurba_urban_class_30">
-              <div class="class-color" style="background-color: #b83232;"></div>
+              <div class="class-color" style="background-color: #b83232;" data-class="degurba_urban_class_30"></div>
               <span class="class-label">City</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="toggle-container">
+          <span class="toggle-label">Colorblind-safe colors</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="colorblind-toggle">
+            <span class="toggle-slider"></span>
+          </label>
         </div>
       </div>
     </div>
@@ -424,9 +574,62 @@
      // Get loader element
      const loader = document.getElementById('loader');
 
+     // Get panel and toggle button elements
+     const controlPanel = document.getElementById('control-panel');
+     const menuToggleBtn = document.getElementById('menu-toggle-btn');
+     const closePanelBtn = document.getElementById('close-panel-btn');
+
+     // Panel toggle functionality
+     menuToggleBtn.addEventListener('click', () => {
+       controlPanel.classList.remove('hidden');
+       menuToggleBtn.classList.add('panel-open');
+     });
+
+     closePanelBtn.addEventListener('click', () => {
+       controlPanel.classList.add('hidden');
+       menuToggleBtn.classList.remove('panel-open');
+     });
+
      // Register PMTiles protocol
      let protocol = new pmtiles.Protocol();
      maplibregl.addProtocol("pmtiles", protocol.tile);
+
+     // Define color schemes
+     const colorSchemes = {
+       default: {
+         'degurba_11_class_0': '#d8d4c0',
+         'degurba_11_class_1': '#8e9ac3',
+         'degurba_11_class_2': '#6d5533',
+         'degurba_11_class_3': '#c97d84',
+         'degurba_11_class_4': '#d6a54d',
+         'degurba_12_class_0': '#9bc993',
+         'degurba_12_class_1': '#5a9b4d',
+         'degurba_13_class_0': '#96b9c9',
+         'degurba_13_class_1': '#2b6ea6',
+         'degurba_urban_class_21': '#e67e50',
+         'degurba_urban_class_22': '#d85a2a',
+         'degurba_urban_class_30': '#b83232'
+       },
+       colorblind: {
+         'degurba_11_class_0': '#fffac8',
+         'degurba_11_class_1': '#42d4f4',
+         'degurba_11_class_2': '#9A6324',
+         'degurba_11_class_3': '#dcbeff',
+         'degurba_11_class_4': '#ffbb33',
+
+         'degurba_12_class_0': '#bfef45',
+         'degurba_12_class_1': '#3cb44b',
+
+         'degurba_13_class_0': '#4363d8',
+         'degurba_13_class_1': '#000075',
+
+         'degurba_urban_class_21': '#f58231',
+         'degurba_urban_class_22': '#e6194B',
+         'degurba_urban_class_30': '#800000'
+       }
+     };
+
+     let currentScheme = 'default';
 
      const map = new maplibregl.Map({
        container: 'map',
@@ -454,6 +657,30 @@
        }
      }
 
+     // Function to update colors
+     function updateColors(scheme) {
+       const colors = colorSchemes[scheme];
+
+       // Build the color expression for MapLibre
+       const colorExpression = [
+         'match',
+         ['get', 'cluster_info'],
+         ...Object.entries(colors).flatMap(([key, value]) => [key, value]),
+         '#e0e0e0' // default
+       ];
+
+       // Update map colors
+       map.setPaintProperty('polygons-fill', 'fill-color', colorExpression);
+
+       // Update legend colors
+       Object.entries(colors).forEach(([className, color]) => {
+         const colorBox = document.querySelector(`.class-color[data-class="${className}"]`);
+         if (colorBox) {
+           colorBox.style.backgroundColor = color;
+         }
+       });
+     }
+
      map.on('load', () => {
        dataLoaded = true;
 
@@ -472,18 +699,15 @@
            'fill-color': [
              'match',
              ['get', 'cluster_info'],
-             'degurba_11_class_0', '#e8dcc8',
+             'degurba_11_class_0', '#d8d4c0',
              'degurba_11_class_1', '#8e9ac3',
              'degurba_11_class_2', '#6d5533',
              'degurba_11_class_3', '#c97d84',
              'degurba_11_class_4', '#d6a54d',
-
              'degurba_12_class_0', '#9bc993',
              'degurba_12_class_1', '#5a9b4d',
-
              'degurba_13_class_0', '#96b9c9',
              'degurba_13_class_1', '#2b6ea6',
-
              'degurba_urban_class_21', '#e67e50',
              'degurba_urban_class_22', '#d85a2a',
              'degurba_urban_class_30', '#b83232',
@@ -503,6 +727,13 @@
            'line-width': 0.3,
            'line-opacity': 0.3
          }
+       });
+
+       // Colorblind toggle
+       const colorblindToggle = document.getElementById('colorblind-toggle');
+       colorblindToggle.addEventListener('change', (e) => {
+         currentScheme = e.target.checked ? 'colorblind' : 'default';
+         updateColors(currentScheme);
        });
 
        const opacitySlider = document.getElementById('opacity-slider');
