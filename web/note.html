@@ -184,7 +184,7 @@
         <li><strong>DEGURBA classification:</strong> Framework for initial stratification into rural settlement classes</li>
       </ul>
 
-      <h2>Feature Engineering</h2>
+      <h2>Feature engineering</h2>
       <p>To ensure comparability across regions and optimize clustering performance, we transformed the raw variables into six engineered features:</p>
       <ul>
         <li><strong><span class="metric">log_population_change</span>:</strong> Signed logarithmic transformation of population change rate (2011-2021) to handle both growth and decline while reducing the influence of extreme values</li>
@@ -204,7 +204,7 @@
         <li><strong>Class 13 - Villages:</strong> grid cells with a density of at least 300 inhabitants per km² and a collective population between 500 and 4,999 in the cluster</li>
       </ul>
 
-      <h3>Clustering Algorithm: MiniBatch K-Means</h3>
+      <h3>Clustering algorithm: MiniBatch K-Means</h3>
       <p>We employ MiniBatch K-Means, a scalable variant of the K-Means algorithm optimized for large datasets. This approach processes data in randomly sampled batches rather than using the entire dataset in each iteration, significantly reducing computational time while maintaining clustering quality.</p>
 
       <p>K-Means clustering was selected for its computational efficiency with large datasets, interpretability through clear cluster centroids, and ability to partition grid cells based on similarity across multiple dimensions simultaneously.</p>
@@ -218,7 +218,7 @@
         <li><strong>Random state:</strong> 42 (for reproducibility)</li>
       </ul>
 
-      <h3>Optimal Cluster Selection: Silhouette Analysis</h3>
+      <h3>Optimal cluster selection: Silhouette Analysis</h3>
       <p>The number of clusters (k) is automatically determined using silhouette analysis, which measures how similar an observation is to its own cluster compared to other clusters. The silhouette score ranges from -1 to 1, where values closer to 1 indicate well-defined, separated clusters.</p>
 
       <p><strong>Selection logic:</strong></p>
@@ -258,13 +258,13 @@
 
       <p>The analysis covers the European territory with UK data integrated through model application to ensure geographic consistency. Additional validation metrics (Calinski-Harabasz and Davies-Bouldin scores) confirm the stability and quality of the clustering solutions across all three DEGURBA classes.</p>
 
-      <h2>Next Steps</h2>
+      <h2>Next steps</h2>
       <p>With the clustering analysis complete, the next phase focuses on validation and interpretation of the resulting rural subtypes. This involves examining the spatial patterns and characteristic profiles of each cluster to identify meaningful distinctions. Through collaborative discussion and expert consultation, we will develop descriptive names for each cluster that effectively communicate their defining features and support intuitive interpretation of the typology. This interpretive work is essential to transform the statistical classification into a more practical tool.</p>
 
 
-      <h2>Additional Materials</h2>
+      <h2>Additional materials</h2>
       <ul>
-        <li><a href="https://nordregio.github.io/granular-typology" target="_blank"><strong>Interactive map</strong></a></li>
+        <li><a href="https://aasgard.tail564a9.ts.net/" target="_blank"><strong>Interactive map</strong></a></li>
         <li><a href="note_data.html"><strong>Data sources</strong></a></li>
         <li><a href="notebook_classifier.html"><strong>Classification notebook</strong></a></li>
         <li><a href="https://github.com/nordregio/granular-typology" target="_blank"><strong>GitHub repository</strong></a></li>
